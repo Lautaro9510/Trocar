@@ -35,3 +35,14 @@ def create_car(request):
                 'form': CarForm()
             }
         return render(request, 'car/create_car.html', context=context)
+
+def show_car(request):
+    if 'search' in request.GET:
+        search = request.GET['search']
+        car = Car.objects.filter(name__ifcontains=search)
+    else:
+        car= Car.objects.all()
+    context = {
+        'car':car,
+    }
+    return render(request, 'car/show_car.html', context=context)

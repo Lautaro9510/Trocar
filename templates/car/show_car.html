@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Lista de Vehículos
+{% endblock %}
+
+{% block content %}
+    <h1>Esta es nuestra lista de vehículos</h1>
+    
+    {% for car in cars %}
+
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+            <h5 class="card-title">{{car.name}}</h5>
+            <p class="card-text">Su kilometraje es: {{car.km}}Km</p>
+            {% if car.in_house == True %}
+                <p>Actualmente esta en nuestro salón</p>
+            {% else %}
+                <p>Actualmente, no está en nuestro salón</p>
+            {% endif %}
+            <a href="#" class="btn btn-primary">Contactar</a>
+            </div>
+        </div>
+       
+    {% endfor %}
+    
+    <h2>Añadir un vehículo </h2> <a href="/car/create_car/" class="btn btn-primary">Crear</a>
+
+{% endblock %}
