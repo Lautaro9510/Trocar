@@ -8,4 +8,4 @@ class CarForm(forms.Form):
     price= forms.IntegerField()
     contact= forms.EmailField()
     contact_name= forms.CharField(max_length=50)
-    in_house= forms.BooleanField()
+    in_house= forms.BooleanField(required= False)

@@ -22,7 +22,7 @@ def create_car(request):
                price=form.cleaned_data['price'],
                contact=form.cleaned_data['contact'],
                contact_name=form.cleaned_data['contact_name'],
-               in_house=form.cleaned_data('in_house')
+               in_house=form.cleaned_data['in_house'],
 
             )
             context= {
