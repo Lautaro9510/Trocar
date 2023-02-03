@@ -50,3 +50,7 @@ def show_car(request):
 def contact(request):
     
     return render(request, 'car/contact.html', context={})
+
+def error_login(request):
+
+    return render(request, 'car/error_login.html', context={})
