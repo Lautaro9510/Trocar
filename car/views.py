@@ -46,3 +46,7 @@ def show_car(request):
         'car':car,
     }
     return render(request, 'car/show_car.html', context=context)
+
+def contact(request):
+    
+    return render(request, 'car/contact.html', context={})
