@@ -48,7 +48,7 @@
             </div>
         </div>
     </section>
-    
+    {% if request.user.is_authenticated %}
     <h2>Añadir un vehículo </h2> <a href="/car/create_car/" class="btn btn-primary">Crear</a>
-
+    {% endif %}
 {% endblock %}
