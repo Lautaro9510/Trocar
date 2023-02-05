@@ -49,7 +49,7 @@ def register(request):
         if form.is_valid():
             user = form.save() 
             UserProfile.objects.create(user=user)
-            return redirect('login')
+            return redirect('/')
         
         context = {
             'errors':form.errors,
