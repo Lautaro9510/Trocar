@@ -14,7 +14,7 @@ def create_car(request):
 
         return render(request, 'car/create_car.html', context=context)   
     elif request.method == 'POST':
-        form = CarForm(request.POST)
+        form = CarForm(request.POST, files=request.FILES)
         if form.is_valid():
             Car.objects.create(
                name=form.cleaned_data['name'],
@@ -25,6 +25,7 @@ def create_car(request):
                contact=form.cleaned_data['contact'],
                contact_name=form.cleaned_data['contact_name'],
                in_house=form.cleaned_data['in_house'],
+               image=form.cleaned_data['image']
 
             )
             context= {
