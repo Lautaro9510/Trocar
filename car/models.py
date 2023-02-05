@@ -10,8 +10,4 @@ class Car(models.Model):
     contact=models.EmailField()
     contact_name=models.CharField(max_length=50)
     in_house = models.BooleanField(default=True)
-    image = models.ImageField(null= True, upload_to='car_image', blank=True)
- 
-
-    def __str__(self):
-        return self.name
+    image = models.ImageField(upload_to='car_image', null=True, blank=True)

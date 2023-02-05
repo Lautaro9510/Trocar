@@ -3,35 +3,49 @@
 {% block title %}
     Ingresar Vehículo
 {% endblock %}
-
 {% block content %}
-<h1>Añada un vehículo </h1>
+{% load static %}
+<!-- Google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="{% static 'css/styles2.css' %}" rel="stylesheet" />
+
+<div class="container">
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Añadir un vehículo</h2>
+    <!-- Icon Divider-->
+    <div class="divider-custom">
+        <div class="divider-custom-line"></div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="row justify-content-center">
+            {% if form %}
+                
+                <div class="col-lg-8 col-xl-7">
+                    <form action="" method="POST">
+
+                        {% csrf_token %}
+                        <div class="form-floating mb-3">
+                            <table>
+                                {{form.as_table}}
+                            </table>
+                        </div>
+                        <input type="submit" value="Ingresar vehículo">
+                    </form>
+                </div>
+            {% endif %}
 
 
-
-{% if form %}
-
-    <form action="" method="POST">
-
-        {% csrf_token %}
-
-        <table>
-            {{form.as_table}}
-        </table>
+            {% if form_errors %}
+                <h2 style="color: red;" >Errores:</h2>
+                {{form_errors}}
+            {% endif %}
 
 
-        <input type="submit" value="Ingresar vehículo">
-    </form>
-{% endif %}
-
-
-{% if form_errors %}
-    <h2 style="color: red;" >Errores:</h2>
-    {{form_errors}}
-{% endif %}
-
-
-{% if message %}
-    <h2 style="color: green;" >{{message}}</h2>
-{% endif %}
+            {% if message %}
+                <h2 style="color: green;" >{{message}}</h2>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}
