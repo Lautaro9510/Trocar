@@ -48,9 +48,16 @@ def show_car(request):
     return render(request, 'car/show_car.html', context=context)
 
 def contact(request):
+
+    if request.method=='POST':
+        return render(request, 'car/thanks.html')
     
-    return render(request, 'car/contact.html', context={})
+    return render(request, 'car/contact.html')
 
 def error_login(request):
 
-    return render(request, 'car/error_login.html', context={})
+    return render(request, 'car/error_login.html')
+
+def thanks(request):
+
+    return render(request, 'car/thanks.html')
