@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from car.models import Car
 from car.forms import CarForm
+from django.conf import settings
+from django.core.mail import send_mail
 
 # Create your views here.
 
@@ -50,6 +52,17 @@ def show_car(request):
 def contact(request):
 
     if request.method=='POST':
+
+        name=request.POST["name"]
+
+        message=request.POST["vehicle"]+" "+request.POST["email"]+" "+request.POST["phone"]+" "+request.POST["message"]
+
+        email_from=settings.EMAIL_HOST_USER
+
+        recipient_list=["servertestmdq@gmail.com"]
+
+        send_mail(name, message, email_from, recipient_list)
+
         return render(request, 'car/thanks.html')
     
     return render(request, 'car/contact.html')
