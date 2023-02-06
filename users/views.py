@@ -12,7 +12,7 @@ def login_view(request):
         context = {
             'form':form
         }
-        return render(request, 'users/login.html', context=context)
+        return render(request, 'registration/login.html', context=context)
     
     elif request.method == 'POST':
         form = AuthenticationForm(request = request, data = request.POST)
@@ -34,7 +34,7 @@ def login_view(request):
             'form':form,
             'errors':'Usuario o contraseña incorrectos!'
         }
-        return render(request, 'users/login.html', context=context)
+        return render(request, 'registration/login.html', context=context)
 
 def register(request):
     if request.method == 'GET':
