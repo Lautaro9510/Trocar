@@ -7,7 +7,9 @@ class Car(models.Model):
     year=models.IntegerField()
     km=models.IntegerField(default=0)
     price=models.IntegerField()
-    contact=models.EmailField()
-    contact_name=models.CharField(max_length=50)
     in_house = models.BooleanField(default=True)
     image = models.ImageField(upload_to='car_image', null=False)
+
+    def __str__(self):
+        return self.name
+

@@ -1,43 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from car.models import Car
-from car.forms import CarForm
+from car.forms import CarForm, CarUpdateForm
 from django.conf import settings
 from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
 
 def create_car(request):
-    if request.method == 'GET':
-        context = {
-            'form': CarForm()
-        }
 
-        return render(request, 'car/create_car.html', context=context)   
-    elif request.method == 'POST':
-        form = CarForm(request.POST, files=request.FILES)
-        if form.is_valid():
-            Car.objects.create(
-               name=form.cleaned_data['name'],
-               plate=form.cleaned_data['plate'],
-               year=form.cleaned_data['year'],
-               km=form.cleaned_data['km'],
-               price=form.cleaned_data['price'],
-               contact=form.cleaned_data['contact'],
-               contact_name=form.cleaned_data['contact_name'],
-               in_house=form.cleaned_data['in_house'],
-               image=form.cleaned_data['image']
+    data = {
+        'form': CarForm()
+    }
 
-            )
-            context= {
-                'message': 'Vehículo ingresado exitósamente'
-            }
-
-        else:
-            context= {
-                'form_errors': form.errors,
-                'form': CarForm()
-            }
-        return render(request, 'car/create_car.html', context=context)
+    return render(request, 'car/create_car.html', data)
 
 def show_car(request):
     if 'search' in request.GET:
@@ -75,3 +51,12 @@ def error_login(request):
 def thanks(request):
 
     return render(request, 'car/thanks.html')
+
+def update_car(request, id):
+    car = get_object_or_404(Car, id=id)
+
+    data= {
+        'form': CarForm(instance=car)
+    }
+
+    return render(request, 'car/update_car.html', data)

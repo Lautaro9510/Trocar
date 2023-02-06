@@ -21,6 +21,7 @@
                                     <h5 class="fw-bolder">{{car.name}}</h5>
                                     <!-- Product price-->
                                     <p>${{car.price}}</p>
+                                    <p>${{car.id}}</p>
                                     <!-- Product kms-->
                                     <p>{{car.km}}km</p>
                                     <!-- Product Location-->
@@ -39,6 +40,11 @@
                             {% else %}
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href='/car/error_login/'>Contactar</a></div>
+                            </div>
+                            {% endif %}
+                            {% if request.user.is_authenticated %}
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href='/car/update_car/{{car.id}}'>Actualizar</a></div>
                             </div>
                             {% endif %}
                         </div>
