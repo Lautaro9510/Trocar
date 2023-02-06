@@ -27,7 +27,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="/car/show_car/">Todos los vehículos</a></li>
                                 <li><hr class="dropdown-divider" /></li>
-                                {% if request.user.is_authenticated %}
+                                {% if perms.app.add_car %}
                                 <li><a class="dropdown-item" href="/car/create_car/">Añadir vehículo</a></li>
                                 {% endif %}
                                 <li><a class="dropdown-item" href='/car/contact/'>Contacto</a></li>

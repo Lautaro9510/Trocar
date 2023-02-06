@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Esta es nuestra lista de vehículos</h1>
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Nuestros vehículos</h2>
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -41,10 +41,12 @@
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href='/car/error_login/'>Contactar</a></div>
                             </div>
                             {% endif %}
-                            {% if request.user.is_authenticated %}
+                            {% if perms.app.change_car %}
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-info btn-sm" href='/car/update_car/{{car.id}}'>Actualizar</a></div>
                             </div>
+                            {% endif %}
+                            {% if perms.app.delete_car %}
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-danger btn-sm" href='/car/eliminate_car/{{car.id}}'>Eliminar</a></div>
                             </div>
