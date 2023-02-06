@@ -12,6 +12,15 @@ def create_car(request):
     data = {
         'form': CarForm()
     }
+   
+    if request.method == 'POST':
+        form = CarForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            data['message'] = 'Vehículo ingresado exitósamente'
+
+        else:
+            data["form"] = form
 
     return render(request, 'car/create_car.html', data)
 
@@ -59,4 +68,18 @@ def update_car(request, id):
         'form': CarForm(instance=car)
     }
 
+    if request.method == 'POST':
+        form = CarForm(data=request.POST, instance=car, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect(to='show_car')
+
+        else:
+            data["form"] = form
+
     return render(request, 'car/update_car.html', data)
+
+def eliminate_car(request, id):
+    car = get_object_or_404(Car, id=id)
+    car.delete()
+    return redirect(to='show_car')

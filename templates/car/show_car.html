@@ -21,7 +21,6 @@
                                     <h5 class="fw-bolder">{{car.name}}</h5>
                                     <!-- Product price-->
                                     <p>${{car.price}}</p>
-                                    <p>${{car.id}}</p>
                                     <!-- Product kms-->
                                     <p>{{car.km}}km</p>
                                     <!-- Product Location-->
@@ -44,17 +43,20 @@
                             {% endif %}
                             {% if request.user.is_authenticated %}
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href='/car/update_car/{{car.id}}'>Actualizar</a></div>
+                                <div class="text-center"><a class="btn btn-info btn-sm" href='/car/update_car/{{car.id}}'>Actualizar</a></div>
+                            </div>
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-danger btn-sm" href='/car/eliminate_car/{{car.id}}'>Eliminar</a></div>
                             </div>
                             {% endif %}
                         </div>
                     </div>
                 {% endfor %}
-                
             </div>
+            {% if request.user.is_authenticated %}
+            <h2>Añadir un vehículo </h2> <a href="/car/create_car/" class="btn btn-primary">Crear</a>
+            {% endif %}
         </div>
     </section>
-    {% if request.user.is_authenticated %}
-    <h2>Añadir un vehículo </h2> <a href="/car/create_car/" class="btn btn-primary">Crear</a>
-    {% endif %}
+
 {% endblock %}
