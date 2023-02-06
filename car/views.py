@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
 
+@permission_required('car.add_car')
 def create_car(request):
 
     data = {
@@ -35,6 +36,7 @@ def show_car(request):
     }
     return render(request, 'car/show_car.html', context=context)
 
+@login_required
 def contact(request):
 
     if request.method=='POST':
@@ -61,6 +63,7 @@ def thanks(request):
 
     return render(request, 'car/thanks.html')
 
+@permission_required('car.change_car')
 def update_car(request, id):
     car = get_object_or_404(Car, id=id)
 
@@ -79,6 +82,7 @@ def update_car(request, id):
 
     return render(request, 'car/update_car.html', data)
 
+@permission_required('car.delete_car')
 def eliminate_car(request, id):
     car = get_object_or_404(Car, id=id)
     car.delete()
