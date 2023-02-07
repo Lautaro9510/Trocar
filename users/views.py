@@ -1,8 +1,8 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
-from django.shortcuts import render, redirect
-
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from users.models import UserProfile
 from users.forms import RegisterForm, UserUpdateForm, UserProfileForm
 
@@ -37,25 +37,18 @@ def login_view(request):
         return render(request, 'registration/login.html', context=context)
 
 def register(request):
-    if request.method == 'GET':
-        form = RegisterForm()
-        context ={
-            'form':form
-        }
-        return render(request, 'users/register.html', context=context)
+    data={
+        'form': RegisterForm()
+    }
+    if request.method == 'POST':
+        register_form=RegisterForm(data=request.POST)
 
-    elif request.method == 'POST':
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save() 
-            UserProfile.objects.create(user=user)
-            return redirect('/')
-        
-        context = {
-            'errors':form.errors,
-            'form':RegisterForm()
-        }
-        return render(request, 'users/register.html', context=context)
+        if register_form.is_valid():
+            register_form.save()
+            user= authenticate(username=register_form.cleaned_data['username'], password=register_form.cleaned_data['password1'])
+            login(request, user)
+            return redirect(to="/")
+    return render(request, 'users/register.html', data)
 
 @login_required
 def update_user(request):
