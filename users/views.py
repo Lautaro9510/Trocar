@@ -77,7 +77,7 @@ def update_user(request):
         
         context = {
             'errors':form.errors,
-            'form':RegisterForm()
+            'form':UserUpdateForm()
         }
         return render(request, 'users/update_user.html', context=context)
 
@@ -107,7 +107,7 @@ def update_user_profile(request):
             'errors':form.errors,
             'form':UserProfileForm()
         }
-        return render(request, 'users/register.html', context=context)
+        return render(request, 'users/update_profile.html', context=context)
 
 def show_user(request):
 
