@@ -101,7 +101,7 @@ def update_user_profile(request):
             user.profile.birth_date = form.cleaned_data.get('birth_date')
             user.profile.profile_picture = form.cleaned_data.get('profile_picture')
             user.profile.save()
-            return redirect('index')
+            return redirect('/')
         
         context = {
             'errors':form.errors,
