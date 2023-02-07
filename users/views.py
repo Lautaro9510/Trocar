@@ -106,3 +106,7 @@ def update_user_profile(request):
             'form':UserProfileForm()
         }
         return render(request, 'users/register.html', context=context)
+
+def show_user(request):
+
+    return render(request, 'users/show_user.html')

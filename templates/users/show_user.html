@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}
+    Lista de Vehículos
+{% endblock %}
+
+{% block content %}
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Nuestros vehículos</h2>
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img class="card-img-top" src="{{request.user.profile.profile_picture.url}}" alt="..." />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">{{request.user.username}}</h5>
+                                <!-- User phon-->
+                                <p>Telefono</p>
+                                <!-- User email-->
+                                <p>email</p>
+        
+                            </div>
+                        </div>
+                        <!-- Product Contact-->
+                        {% if request.user.is_authenticated %}
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href='/car/contact/'>Contactar</a></div>
+                        </div>
+                        {% else %}
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href='/car/error_login/'>Contactar</a></div>
+                        </div>
+                        {% endif %}
+                        {% if perms.app.change_car %}
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-info btn-sm" href='/car/update_car/{{car.id}}'>Actualizar</a></div>
+                        </div>
+                        {% endif %}
+                        {% if perms.app.delete_car %}
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-danger btn-sm" href='/car/eliminate_car/{{car.id}}'>Eliminar</a></div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% if request.user.is_authenticated %}
+            <h2>Añadir un vehículo </h2> <a href="/car/create_car/" class="btn btn-primary">Crear</a>
+            {% endif %}
+        </div>
+    </section>
+
+{% endblock %}
