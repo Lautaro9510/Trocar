@@ -13,6 +13,7 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+        help_texts={k:"" for k in fields}
 
 class UserUpdateForm(forms.ModelForm):
     username = forms.CharField(max_length=100, required=False, label='Nombre de usuario')
