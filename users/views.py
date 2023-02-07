@@ -48,6 +48,8 @@ def register(request):
             user= authenticate(username=register_form.cleaned_data['username'], password=register_form.cleaned_data['password1'])
             login(request, user)
             return redirect(to="/")
+    else:
+        register_form=RegisterForm()
     return render(request, 'users/register.html', data)
 
 @login_required

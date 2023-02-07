@@ -15,9 +15,9 @@ class RegisterForm(UserCreationForm):
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
 
 class UserUpdateForm(forms.ModelForm):
-    username = forms.CharField(max_length=100, required=True, label='Nombre de usuario')
-    first_name = forms.CharField(max_length=100, required=True, label='Nombre')
-    last_name = forms.CharField(max_length=100, required=True, label='Apellido')
+    username = forms.CharField(max_length=100, required=False, label='Nombre de usuario')
+    first_name = forms.CharField(max_length=100, required=False, label='Nombre')
+    last_name = forms.CharField(max_length=100, required=False, label='Apellido')
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name']
