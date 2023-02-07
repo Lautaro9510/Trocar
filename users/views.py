@@ -73,7 +73,7 @@ def update_user(request):
             user.first_name = form.cleaned_data.get('first_name')
             user.last_name = form.cleaned_data.get('last_name')
             user.save()
-            return redirect('index')
+            return redirect('/')
         
         context = {
             'errors':form.errors,
