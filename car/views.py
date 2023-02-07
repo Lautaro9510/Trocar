@@ -4,6 +4,7 @@ from car.forms import CarForm, CarUpdateForm
 from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib import messages
 
 # Create your views here.
 
@@ -18,7 +19,7 @@ def create_car(request):
         form = CarForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
-            data['message'] = 'Vehículo ingresado exitósamente'
+            messages.success(request, 'Vehículo ingresado exitósamente')
 
         else:
             data["form"] = form
@@ -75,6 +76,7 @@ def update_car(request, id):
         form = CarForm(data=request.POST, instance=car, files=request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Datos actualizados correctamente')
             return redirect(to='show_car')
 
         else:
@@ -86,4 +88,5 @@ def update_car(request, id):
 def eliminate_car(request, id):
     car = get_object_or_404(Car, id=id)
     car.delete()
+    messages.success(request, 'Vehículo eliminado')
     return redirect(to='show_car')

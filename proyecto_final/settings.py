@@ -139,3 +139,5 @@ EMAIL_HOST_USER="servertestmdq@gmail.com"
 EMAIL_HOST_PASSWORD="tfrykzrcaqymshhk"
 
 LOGIN_REDIRECT_URL = '/'
+
+MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
