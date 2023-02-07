@@ -1,9 +1,9 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
-from users.models import UserProfile
+from django.shortcuts import render, redirect
+from django.views.generic import ListView
+from users.models import User
 from users.forms import RegisterForm, UserUpdateForm, UserProfileForm
 
 def login_view(request):
@@ -112,3 +112,10 @@ def update_user_profile(request):
 def show_user(request):
 
     return render(request, 'users/show_user.html')
+
+class UserList(ListView):
+    model=User
+    template_name= 'users/user_list.html'
+
+    def get_queryset(self):
+        return self.model.objects.filter(is_active=True)

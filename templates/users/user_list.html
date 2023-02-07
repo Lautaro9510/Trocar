@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}
+    Lista de usuarios
+{% endblock %}
+
+{% block content %}
+{% if object_list%}
+<div class="card">
+    <div class="card-header">
+        <strong class="card-title">Listado de usuarios</strong>
+    </div>
+    <div class="table-stats order-table ov-h">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Last name</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in object_list %}
+                <tr>
+                    <td>{{user.id}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.first_name}}</td>
+                    <td>{{user.last_name}}</td>
+                    <td>{{user.profile.phone}}</td>
+                    <td>
+                        <a href="#" class="btn btn-primary">Actualizar Datos</a>
+                        <a href="#" class="btn btn-primary">Actualizar Perfil</a>
+                    </td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+<h1>No existen usuarios registrados</h1>   
+</div>
+{%endif%}
+{% endblock %}
