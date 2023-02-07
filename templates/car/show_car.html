@@ -57,7 +57,7 @@
                     </div>
                 {% endfor %}
             </div>
-            {% if request.user.is_authenticated %}
+            {% if perms.app.add_car %}
             <h2>Añadir un vehículo </h2> <a href="/car/create_car/" class="btn btn-primary">Crear</a>
             {% endif %}
         </div>

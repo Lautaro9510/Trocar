@@ -7,38 +7,45 @@
 {% endblock %}
 
 {% block content %}
+{% load static %}
     <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Nuestros vehículos</h2>
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <div class="col mb-5">
                     <div class="card h-100">
-                        <!-- Product image-->
+                        {% if request.user.profile.profile_picture.url is not null%}
+                        <!-- User image-->
                         <img class="card-img-top" src="{{request.user.profile.profile_picture.url}}" alt="..." />
-                        <!-- Product details-->
+                        {%else%}
+                        <!-- User image default-->
+                        <img class="card-img-top" src="{% static 'assets/user_default.png' %}" alt="..." />
+                        {%endif%}
+                        <!-- User details-->
                         <div class="card-body p-4">
                             <div class="text-center">
-                                <!-- Product name-->
-                                <h5 class="fw-bolder">{{request.user.username}}</h5>
+                                <!-- Product username-->
+                                <h3 class="fw-bolder">{{request.user.first_name}}</h3><h3 class="fw-bolder">{{request.user.last_name}}</h3>
+                                <!-- Product Full name-->
+                                <h5 class="fw-bolder">{{request.user.username}}</h5>                                
                                 <!-- User phone-->
-                                <p>{{request.user.phone}}</p>
+                                <p>{{request.user.profile.phone}}</p>
                                 <!-- User email-->
-                                <p>email</p>
-        
+                                <p>{{request.user.email}}</p>
+                                <!-- User date-->
+                                <p>{{request.user.profile.birth_date}}</p>        
                             </div>
                         </div>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-info btn-sm" href="/users/update/">Actualizar datos</a></div>
+                            <div class="text-center"><a class="btn btn-info btn-sm" href="/users/update/">Actualizar datos personales</a></div>
                         </div>
-                        {% if perms.app.delete_car %}
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-danger btn-sm" href='/car/eliminate_car/'>Eliminar</a></div>
+                            <div class="text-center"><a class="btn btn-info btn-sm" href="/users/update/profile">Actualizar perfil</a></div>
                         </div>
-                        {% endif %}
                     </div>
                 </div>
             </div>
-            {% if request.user.is_authenticated %}
+            {% if perms.app.add_car %}
             <h2>Añadir un vehículo </h2> <a href="/car/create_car/" class="btn btn-primary">Crear</a>
             {% endif %}
         </div>
