@@ -1,10 +1,11 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from users.models import User
 from users.forms import RegisterForm, UserUpdateForm, UserProfileForm
+from django.contrib import messages
 from users.mixins import LoginStaffMixin
 
 def login_view(request):
@@ -118,9 +119,22 @@ def show_user(request):
 
 
 class UserList(LoginStaffMixin,ListView):
+
     model=User
     template_name= 'users/user_list.html'
     permission_required='perms.app.delete_user'
 
     def get_queryset(self):
         return self.model.objects.filter(is_active=True)
+
+
+def edit_user(request,id):
+    user = User.objects.get(id=id)
+    if request.method == 'GET':
+        form=UserUpdateForm(instance=user)
+    else:
+        form = UserUpdateForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+        return redirect(to ="/users/user_list/" )
+    return render(request, 'users/update_user.html', {'form':form})

@@ -1,7 +1,7 @@
 from django.contrib.auth.views import LogoutView
 from django.urls import path
 
-from users.views import login_view, register, update_user, update_user_profile, show_user, UserList
+from users.views import login_view, register, update_user, update_user_profile, show_user, UserList, edit_user
 
 urlpatterns = [
     path('login/', login_view),
@@ -11,4 +11,5 @@ urlpatterns = [
     path('update/profile/', update_user_profile, name='update_profile'),
     path('show_user/', show_user),
     path('user_list/', UserList.as_view(), name='user_list'),
+    path('edit_user/<id>/', edit_user)
 ]

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from car.models import Car
-from car.forms import CarForm, CarUpdateForm
+from car.forms import CarForm
 from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required, permission_required
