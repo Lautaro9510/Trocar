@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Loguear
+{% endblock %}
+
+{% block content %}
+{% load static %}
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Font Awesome icons (free version)-->
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<!-- Google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="{% static 'css/styles3.css' %}" rel="stylesheet" />
+
+<div class="container">
+    <!-- Team-->
+    <section class="page-section bg-light" id="team">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Acerca de</h2>
+                <h3 class="section-subheading text-muted">Este sitio está desarrollado por:</h3>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-4">
+                    <div class="team-member">
+                        <img class="mx-auto rounded-circle" src="{% static 'assets/team/team2.jpg' %}" alt="..." />
+                        <h4>Lautaro Fasciglioni</h4>
+                        <p class="text-muted">Autor</p>
+                        <a class="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/lautaro-fasciglioni-96773b1b8" aria-label="Lautaro Fasciglioni LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">Hola! Soy Lautaro, un oficinista backoffice que busca un nuevo camino en el rubro IT.<br>
+                    Dado que mi trabajo actual pertenece al sector automotor, mis projectos buscan lograr una sinergia entre mis conocimientos.</p></div>
+            </div>
+        </div>
+    </section>
+    
+
+
+</div>
+{% endblock %}
