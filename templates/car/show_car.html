@@ -43,12 +43,12 @@
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href='/car/error_login/'>Contactar</a></div>
                             </div>
                             {% endif %}
-                            {% if perms.app.change_car %}
+                            {% if perms.car.change_car %}
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-info btn-sm" href='/car/update_car/{{car.id}}'>Actualizar</a></div>
                             </div>
                             {% endif %}
-                            {% if perms.app.delete_car %}
+                            {% if perms.car.delete_car %}
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-danger btn-sm" href='/car/eliminate_car/{{car.id}}'>Eliminar</a></div>
                             </div>
@@ -57,7 +57,7 @@
                     </div>
                 {% endfor %}
             </div>
-            {% if perms.app.add_car %}
+            {% if perms.car.add_car %}
             <h2>Añadir un vehículo </h2> <a href="/car/create_car/" class="btn btn-primary">Crear</a>
             {% endif %}
         </div>

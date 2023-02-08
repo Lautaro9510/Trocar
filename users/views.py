@@ -129,7 +129,7 @@ class UserList(LoginStaffMixin,ListView):
     def get_queryset(self):
         return self.model.objects.filter(is_active=True)
 
-@permission_required('user.change_user')
+@permission_required('auth.change_user')
 def edit_user(request,id):
     user = User.objects.get(id=id)
     if request.method == 'GET':
@@ -142,7 +142,7 @@ def edit_user(request,id):
         return redirect(to ="/users/user_list/" )
     return render(request, 'users/update_user.html', {'form':form})
 
-@permission_required('user.change_user_profile')
+@permission_required('auth.change_user_profile')
 def edit_profile_user(request,id):
     user = User.objects.get(id=id)
     if request.method == 'GET':
@@ -169,7 +169,7 @@ def edit_profile_user(request,id):
     return render(request, 'users/update_profile.html', {'form':form})
 
 
-
+@permission_required('auth.delete_user')
 def eliminate_user(request, id):
     user = get_object_or_404(User, id=id)
     user.delete()
