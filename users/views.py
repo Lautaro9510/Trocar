@@ -54,35 +54,50 @@ def register(request):
         register_form=RegisterForm()
     return render(request, 'users/register.html', data)
 
-@login_required
-def update_user(request):
-    user = request.user
-    if request.method == 'GET':
-        form = UserUpdateForm(initial = {
-            'username':user.username,
-            'first_name':user.first_name,
-            'last_name':user.last_name
-        })
-        context ={
-            'form':form
-        }
-        return render(request, 'users/update_user.html', context=context)
 
-    elif request.method == 'POST':
-        form = UserUpdateForm(request.POST)
+@login_required
+def update_user(request,id):
+    user = User.objects.get(id=id)
+    if request.method == 'GET':
+        form=UserUpdateForm(instance=user)
+    else:
+        form = UserUpdateForm(request.POST, instance=user)
         if form.is_valid():
-            user.username = form.cleaned_data.get('username')
-            user.first_name = form.cleaned_data.get('first_name')
-            user.last_name = form.cleaned_data.get('last_name')
-            user.save()
+            form.save()
             messages.success(request, 'Datos actualizados correctamente')
-            return redirect('/')
+        return redirect(to ="/users/show_user/" )
+    return render(request, 'users/update_user.html', {'form':form})
+
+
+# @login_required
+# def update_user(request):
+#     user = request.user
+#     if request.method == 'GET':
+#         form = UserUpdateForm(initial = {
+#             'username':user.username,
+#             'first_name':user.first_name,
+#             'last_name':user.last_name
+#         })
+#         context ={
+#             'form':form
+#         }
+#         return render(request, 'users/update_user.html', context=context)
+
+#     elif request.method == 'POST':
+#         form = UserUpdateForm(request.POST)
+#         if form.is_valid():
+#             user.username = form.cleaned_data.get('username')
+#             user.first_name = form.cleaned_data.get('first_name')
+#             user.last_name = form.cleaned_data.get('last_name')
+#             user.save()
+#             messages.success(request, 'Datos actualizados correctamente')
+#             return redirect('/')
         
-        context = {
-            'errors':form.errors,
-            'form':UserUpdateForm()
-        }
-        return render(request, 'users/update_user.html', context=context)
+#         context = {
+#             'errors':form.errors,
+#             'form':UserUpdateForm()
+#         }
+#         return render(request, 'users/update_user.html', context=context)
 
 @login_required
 def update_user_profile(request):
