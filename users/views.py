@@ -75,6 +75,7 @@ def update_user(request):
             user.first_name = form.cleaned_data.get('first_name')
             user.last_name = form.cleaned_data.get('last_name')
             user.save()
+            messages.success(request, 'Datos actualizados correctamente')
             return redirect('/')
         
         context = {
@@ -104,6 +105,7 @@ def update_user_profile(request):
             user.profile.birth_date = form.cleaned_data.get('birth_date')
             user.profile.profile_picture = form.cleaned_data.get('profile_picture')
             user.profile.save()
+            messages.success(request, 'Datos actualizados correctamente')
             return redirect('/')
         
         context = {
@@ -136,5 +138,28 @@ def edit_user(request,id):
         form = UserUpdateForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Datos actualizados correctamente')
         return redirect(to ="/users/user_list/" )
     return render(request, 'users/update_user.html', {'form':form})
+
+def edit_profile_user(request,id):
+    user = User.objects.get(id=id)
+    if request.method == 'GET':
+        form = UserProfileForm(initial={
+            'phone':request.user.profile.phone,
+            'birth_date':request.user.profile.birth_date,
+            'profile_picture':request.user.profile.profile_picture
+        })
+        context ={
+            'form':form
+        }
+        return render(request, 'users/update_profile.html', context=context)   
+    if request.method == 'GET':
+        form=UserProfileForm(instance=user)
+    else:
+        form = UserProfileForm(request.POST, instance=user,  files=request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Datos actualizados correctamente')
+        return redirect(to ="/users/user_list/" )
+    return render(request, 'users/update_profile.html', {'form':form})
