@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from users.models import User
 from users.forms import RegisterForm, UserUpdateForm, UserProfileForm
+from users.mixins import LoginStaffMixin
 
 def login_view(request):
     if request.method == 'GET':
@@ -81,6 +82,7 @@ def update_user(request):
         }
         return render(request, 'users/update_user.html', context=context)
 
+@login_required
 def update_user_profile(request):
     user = request.user
     if request.method == 'GET':
@@ -109,13 +111,16 @@ def update_user_profile(request):
         }
         return render(request, 'users/update_profile.html', context=context)
 
+@login_required
 def show_user(request):
 
     return render(request, 'users/show_user.html')
 
-class UserList(ListView):
+
+class UserList(LoginStaffMixin,ListView):
     model=User
     template_name= 'users/user_list.html'
+    permission_required='perms.app.delete_user'
 
     def get_queryset(self):
         return self.model.objects.filter(is_active=True)
