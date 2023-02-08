@@ -70,8 +70,8 @@ def update_user(request,id):
 
 
 @login_required
-def update_user_profile(request):
-    user = request.user
+def update_user_profile(request,id):
+    user = User.objects.get(id=id)
     if request.method == 'GET':
         form = UserProfileForm(initial={
             'phone':request.user.profile.phone,
@@ -81,23 +81,20 @@ def update_user_profile(request):
         context ={
             'form':form
         }
-        return render(request, 'users/update_profile.html', context=context)
-
-    elif request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES)
+        return render(request, 'users/update_profile.html', context=context)   
+    if request.method == 'GET':
+        form=UserProfileForm(instance=user)
+    else:
+        form = UserProfileForm(request.POST, instance=user,  files=request.FILES)
         if form.is_valid():
             user.profile.phone = form.cleaned_data.get('phone')
             user.profile.birth_date = form.cleaned_data.get('birth_date')
             user.profile.profile_picture = form.cleaned_data.get('profile_picture')
-            user.profile.save()
+            form.save()
             messages.success(request, 'Datos actualizados correctamente')
-            return redirect('/')
-        
-        context = {
-            'errors':form.errors,
-            'form':UserProfileForm()
-        }
-        return render(request, 'users/update_profile.html', context=context)
+        return redirect(to ="/users/user_list/" )
+    return render(request, 'users/update_profile.html', {'form':form})
+
 
 @login_required
 def show_user(request):
