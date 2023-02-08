@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
@@ -129,7 +129,7 @@ class UserList(LoginStaffMixin,ListView):
     def get_queryset(self):
         return self.model.objects.filter(is_active=True)
 
-
+@permission_required('user.change_user')
 def edit_user(request,id):
     user = User.objects.get(id=id)
     if request.method == 'GET':
@@ -142,6 +142,7 @@ def edit_user(request,id):
         return redirect(to ="/users/user_list/" )
     return render(request, 'users/update_user.html', {'form':form})
 
+@permission_required('user.change_user_profile')
 def edit_profile_user(request,id):
     user = User.objects.get(id=id)
     if request.method == 'GET':
@@ -166,3 +167,11 @@ def edit_profile_user(request,id):
             messages.success(request, 'Datos actualizados correctamente')
         return redirect(to ="/users/user_list/" )
     return render(request, 'users/update_profile.html', {'form':form})
+
+
+
+def eliminate_user(request, id):
+    user = get_object_or_404(User, id=id)
+    user.delete()
+    messages.success(request, 'Usuario eliminado')
+    return redirect(to="/users/user_list/")
