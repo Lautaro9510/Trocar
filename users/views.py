@@ -142,7 +142,7 @@ def edit_user(request,id):
         return redirect(to ="/users/user_list/" )
     return render(request, 'users/update_user.html', {'form':form})
 
-@permission_required('auth.change_user_profile')
+@permission_required('users.change_userprofile')
 def edit_profile_user(request,id):
     user = User.objects.get(id=id)
     if request.method == 'GET':
