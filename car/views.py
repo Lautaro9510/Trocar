@@ -20,7 +20,7 @@ def create_car(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Vehículo ingresado exitósamente')
-
+            return redirect(to='show_car')
         else:
             data["form"] = form
 
